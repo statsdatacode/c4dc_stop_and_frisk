@@ -20,7 +20,7 @@ sf_map <- geospatial_sf_data %>%
   geom_jitter() +
   labs(subtitle="Stops By Location: 2010-2017")
 
-sf_map
+save_plot(sf_map,'stop_and_frisk_map.png')
 
 sf_age_map <- geospatial_sf_data %>%
   filter(!is.na(age)) %>%
@@ -31,7 +31,7 @@ sf_age_map <- geospatial_sf_data %>%
     color='Age'
   )
 
-sf_age_map
+save_plot(sf_age_map,'stop_and_frisk_by_age_map.png')
 
 sf_sex_map <- geospatial_sf_data %>%
   filter(!is.na(sex)) %>%
@@ -42,7 +42,7 @@ sf_sex_map <- geospatial_sf_data %>%
     color="Sex"
   )
 
-sf_sex_map
+save_plot(sf_sex_map,'stop_and_frisk_by_sex_map.png')
 
 sf_race_map <- geospatial_sf_data %>%
   filter(!is.na(race)) %>%
@@ -53,7 +53,7 @@ sf_race_map <- geospatial_sf_data %>%
     color="Race"
   )
 
-sf_race_map
+save_plot(sf_race_map,'stop_and_frisk_by_race_map.png')
 
 sf_age_sex_map <- geospatial_sf_data %>%
   filter(!is.na(age),!is.na(sex)) %>%
@@ -65,7 +65,7 @@ sf_age_sex_map <- geospatial_sf_data %>%
     shape="Sex"
   )
 
-sf_age_sex_map
+save_plot(sf_age_sex_map,'stop_and_frisk_by_age_sex_map.png')
 
 sf_race_sex_map <- geospatial_sf_data %>%
   filter(!is.na(race),!is.na(sex)) %>%
@@ -77,4 +77,4 @@ sf_race_sex_map <- geospatial_sf_data %>%
     shape="Sex"
   )
 
-sf_race_sex_map
+save_plot(sf_race_sex_map,'stop_and_frisk_by_race_sex_map.png')
