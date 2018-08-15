@@ -159,4 +159,4 @@ raw_ward <- sf_data %>%
   ggplot(aes(x=ward)) +
   geom_bar()
 
-raw_ward
+raw_ward  

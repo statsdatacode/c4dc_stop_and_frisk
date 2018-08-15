@@ -1,80 +1,151 @@
 base_map <- function(data) {
   
   ggplot(data,aes(x=long,y=lat)) +
-    geom_polygon(data=tract_polygons,aes(x=long,y=lat,group=factor(CensusTract)),fill="grey",color="black") +
-    scale_x_continuous(breaks=NULL) +
-    scale_y_continuous(breaks=NULL) +
-    labs(title='Washington, DC - Map of Stop and Frisk Incidents',
-       caption="Source: Metropolitan Police Department",
-       x="",y=""
-    ) +
-    theme(
-      legend.position="bottom",
-      panel.background = element_blank()
-    )
+    geom_polygon(data=tract_polygons,aes(x=long,y=lat,group=factor(CensusTract)),fill="grey",color="black") 
   
 }
 
 sf_map <- geospatial_sf_data %>%
   base_map +
   geom_jitter() +
-  labs(subtitle="Stops By Location: 2010-2017")
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='2010 - 2017',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
+  )
 
-save_plot(sf_map,'stop_and_frisk_map.png')
+sf_map
 
 sf_age_map <- geospatial_sf_data %>%
   filter(!is.na(age)) %>%
   base_map +
   geom_jitter(aes(color=as.numeric(age))) +
-  labs(
-    subtitle="Stops By Age & Location: 2010-2017",
-    color='Age'
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Age',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
   )
 
-save_plot(sf_age_map,'stop_and_frisk_by_age_map.png')
+sf_age_map
 
 sf_sex_map <- geospatial_sf_data %>%
   filter(!is.na(sex)) %>%
   base_map +
-  geom_jitter(aes(color=sex)) +
-  labs(
-    subtitle="Stops By Sex & Location: 2010 through 2017",
-    color="Sex"
+  geom_jitter(aes(color=sex))  +
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Age',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
   )
 
-save_plot(sf_sex_map,'stop_and_frisk_by_sex_map.png')
+sf_sex_map
 
 sf_race_map <- geospatial_sf_data %>%
   filter(!is.na(race)) %>%
   base_map +
   geom_jitter(aes(color=race)) +
-  labs(
-    subtitle="Stops By Race & Location: 2010 through 2017",
-    color="Race"
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Race',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
   )
 
-save_plot(sf_race_map,'stop_and_frisk_by_race_map.png')
+sf_race_map
 
 sf_age_sex_map <- geospatial_sf_data %>%
   filter(!is.na(age),!is.na(sex)) %>%
   base_map +
-  geom_jitter(aes(color=as.numeric(age), shape=as.factor(sex))) +
-  labs(
-    subtitle="Stops By Age, Sex & Location: 2010 through 2017",
-    color="Age",
-    shape="Sex"
+  geom_jitter(aes(color=as.numeric(age))) +
+  facet_wrap(~sex) +
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Age & Sex',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
   )
 
-save_plot(sf_age_sex_map,'stop_and_frisk_by_age_sex_map.png')
+sf_age_sex_map
 
 sf_race_sex_map <- geospatial_sf_data %>%
   filter(!is.na(race),!is.na(sex)) %>%
   base_map +
-  geom_jitter(aes(color=race,shape=as.factor(sex))) +
-  labs(
-    subtitle="Stops By Race, Sex & Location: 2010 through 2017",
-    color="Race",
-    shape="Sex"
+  geom_jitter(aes(color=race)) +
+  facet_wrap(~sex) +
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Race & Sex',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
   )
 
-save_plot(sf_race_sex_map,'stop_and_frisk_by_race_sex_map.png')
+sf_race_sex_map
+
+sf_time_map <- geospatial_sf_data %>%
+  base_map +
+  geom_jitter() +
+  facet_wrap(~time_six_hour) +
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Time of Day',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
+  )
+
+sf_time_map
+
+sf_age_time_map <- geospatial_sf_data %>%
+  base_map +
+  geom_jitter(aes(color=as.numeric(age))) +
+  facet_wrap(~time_six_hour) +
+  scale_x_continuous(breaks=NULL) +
+  scale_y_continuous(breaks=NULL) +
+  labs(title='Washington, DC - Map of Stop and Frisk Incidents',
+       subtitle='Stops By Age & Time of Day',
+       caption="Source: Metropolitan Police Department",
+       x="",y=""
+  ) +
+  theme(
+    legend.position="bottom",
+    panel.background = element_blank()
+  )
+
+sf_age_time_map
